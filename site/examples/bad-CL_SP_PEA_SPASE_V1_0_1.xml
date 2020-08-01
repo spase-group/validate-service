@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Spase xmlns="http://www.spase-group.org/data/schema">
+<Version>1.0.1</Version>
+	<NumericalData>
+		<AccessInformation>
+			<AccessURL>
+				<URL>http://www.cluster.rl.ac.uk/</URL>
+			</AccessURL>
+			<Acknowledgement>Please acknowledge the PEACE team in any publication based upon use of this data.
+			</Acknowledgement>
+			<Availability>
+				<Online/>
+			</Availability>
+			<Caveats>
+			See CSDS User's Guide, DS-MPA-TN-0015, for post procesing caveats
+			This is PEACE PP/SP data version 3, produced at MSSL
+			Positions in GSE coordinates are available in the CSDS:NDR:CL_SP_AUX product.			
+			</Caveats>
+			<Format>CDF</Format>
+			<RepositoryName>CSDS</RepositoryName>
+		</AccessInformation>
+		<AccessRights>Open</AccessRights>
+		<InstrumentID>CSDS:IR:PEACE3</InstrumentID>
+		<InstrumentRegion>
+			<Magnetosphere>Magnetosheath</Magnetosphere>
+		</InstrumentRegion>
+		<InstrumentRegion>
+			<Magnetosphere>Magnetotail</Magnetosphere>
+		</InstrumentRegion>
+		<InstrumentRegion>
+			<Magnetosphere>Main</Magnetosphere>
+		</InstrumentRegion>
+		<InstrumentRegion>
+			<Magnetosphere>Polar</Magnetosphere>
+		</InstrumentRegion>
+		<MeasurementType>EnergeticParticles</MeasurementType>
+		<ObservatoryID>CSDS:OR:Cluster3</ObservatoryID>
+		<ObservedRegion>
+			<Magnetosphere>Magnetosheath</Magnetosphere>
+		</ObservedRegion>
+		<ObservedRegion>
+			<Magnetosphere>Magnetotail</Magnetosphere>
+		</ObservedRegion>
+		<ObservedRegion>
+			<Magnetosphere>Main</Magnetosphere>
+		</ObservedRegion>
+		<ObservedRegion>
+			<Magnetosphere>Polar</Magnetosphere>
+		</ObservedRegion>
+		<PhysicalParameter>
+			<Cadence>00:00:60</Cadence>
+			<Description>Interval centred time tag</Description>
+			<Dimension>
+				 <Description>
+				Date and time in ISO 8601 recommended primary standard notation.
+				</Description>
+				<Size>1</Size>
+			</Dimension>
+			<Name>Epoch</Name>
+			<Support>Temporal</Support>
+			<Units>Date Time</Units>
+			<UnitsConversion>1.0>s</UnitsConversion>
+		</PhysicalParameter>
+		<PhysicalParameter>
+			<Cadence>00:00:60</Cadence>
+			<Description>PEACE status</Description>
+			<Dimension>
+				<Description>
+					In the status word each of the 4 bytes has a different meaning, the first of which is the CSDS-defined
+					quality flag applied to the PEACE data.
+					Status[0] - Data quality defined by CSDS
+					Status[1] - Missing data indicator and on-board processing mode
+					Status[2] - On-board instrument status
+					Status[3] - Data processing warning flags.
+					See CSDS User Guide (ftp://ftp.estec.esa.nl/pub/csds/task_for/users_guide/csds_guide-1_1.pdf).
+					</Description>
+				<Size>4</Size>
+			</Dimension>
+			<Name>Status</Name>
+			<Support>Other</Support>
+			<Units>None</Units>
+		</PhysicalParameter>
+		<PhysicalParameter>
+			<Cadence>00:00:60</Cadence>
+			<Description>The electron density averaged over one minute in units of number per cm^-3.</Description>
+			<Dimension>
+				<Description>A single value giving the electron density.</Description>
+				<Size>1</Size>
+			</Dimension>
+			<Measured>
+				<Particle>
+					<ParticlePhysicalQuantity>NumberDensity</ParticlePhysicalQuantity>
+					<ParticleQualifier>Average</ParticleQualifier>
+					<ParticleType>Electron</ParticleType>
+				</Particle>
+			</Measured>
+			<Name>N_e_den</Name>
+			<Units>cm^−3</Units>
+			<UnitsConversion>1.0e6>m^-3</UnitsConversion>
+		</PhysicalParameter>
+		<PhysicalParameter>
+			<Cadence>00:00:60</Cadence>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Description>The electron velocity averaged over one minute in units of km.s^-1.</Description>
+			<Dimension>
+				<Description>The three components of the electron velocity vector messured in GSE coordinates.</Description>
+				<Size>3</Size>
+			</Dimension>
+			<Measured>
+				<Particle>
+					<ParticlePhysicalQuantity>Velocity</ParticlePhysicalQuantity>
+					<ParticleQualifier>Vector</ParticleQualifier>
+					<ParticleType>Electron</ParticleType>
+				</Particle>
+			</Measured>
+			<Name>V_e_xyz_gse</Name>
+			<Units>km/s</Units>
+			<UnitsConversion>1.0e3>ms^-1</UnitsConversion>
+		</PhysicalParameter>
+		<PhysicalParameter>
+			<Cadence>00:00:60</Cadence>
+			<Description>The electron temperature parallel to the magnetic field averaged over one minute in units of 10^6K.</Description>
+			<Dimension>
+				<Description>A single value giving the electron temperature parallel to the magnetic field.</Description>
+				<Size>1</Size>
+			</Dimension>
+			<Measured>
+				<Particle>
+					<ParticlePhysicalQuantity>Temperature</ParticlePhysicalQuantity>
+					<ParticleQualifier>Parallel</ParticleQualifier>
+					<ParticleType>Electron</ParticleType>
+				</Particle>
+			</Measured>
+			<Name>T_e_par</Name>
+			<Units>MK</Units>
+			<UnitsConversion>1.0e6>K</UnitsConversion>
+		</PhysicalParameter>
+		<PhysicalParameter>
+			<Cadence>00:00:60</Cadence>
+			<Description>The electron temperature perpendicular to the magnetic field averaged over one minute in units of 10^6K.</Description>
+			<Dimension>
+				<Description>A single value giving the electron temperature perpendicular to the magnetic field.</Description>
+				<Size>1</Size>
+			</Dimension>
+			<Measured>
+				<Particle>
+					<ParticlePhysicalQuantity>Temperature</ParticlePhysicalQuantity>
+					<ParticleQualifier>Perpendicular</ParticleQualifier>
+					<ParticleType>Electron</ParticleType>
+				</Particle>
+			</Measured>
+			<Name>T_e_perp</Name>
+			<Units>MK</Units>
+			<UnitsConversion>1.0e6>K</UnitsConversion>
+		</PhysicalParameter>
+		<PhysicalParameter>
+			<Cadence>00:00:60</Cadence>
+			<Description>The electron heat flux parallel to the magnetic field averaged over one minute in units of µJ m^−2 s^−1.</Description>
+			<Dimension>
+				<Description>A single value giving the electron heat flux parallel to the magnetic field.</Description>
+				<Size>1</Size>
+			</Dimension>
+			<Measured>
+				<Particle>
+					<ParticlePhysicalQuantity>HeatFlux</ParticlePhysicalQuantity>
+					<ParticleQualifier>Parallel</ParticleQualifier>
+					<ParticleType>Electron</ParticleType>
+				</Particle>
+			</Measured>
+			<Name>Q_e_par</Name>
+			<Units>µJ m^−2 s^−1</Units>
+			<UnitsConversion>1.0e-6>Jm^-2s^-1</UnitsConversion>
+		</PhysicalParameter>
+		<ProviderProcessingLevel>Calibrated</ProviderProcessingLevel>
+		<ProviderVersion>1.0</ProviderVersion>
+		<ResourceHeader>
+			<Contact>
+				<PersonID>CSDS:PR:AFazakerly</PersonID>
+				<Role>PrincipalInvestigator</Role>
+			</Contact>
+			<Description>
+			    The PEACE (Plasma Electron and Current Experiment) electron analyser measures the electron velocity distribution
+			    function at the satellite in three dimensions with good time, energy, and angular resolution. 
+				The CSDS PEACE parameters are all derived from a subset of the moment sums calculated onboard and the procedure
+				is described in more detail in the CSDS User's Guide (ftp://ftp.estec.esa.nl/pub/csds/task_for/users_guide/csds_guide-1_1.pdf).
+				For the CSDS Summary Parameter product, PEACE provides a status word, the electron density, the three averaged components of the
+				electron velocity vector in the GSE coordinate system, the electron temperature parallel and perpendiculer to the magnetic field
+				and the elctron heat flux parallel to the magnetic field. 
+				These summary parameters are one minute averaged measurements from the PEACE experiment on the Cluster C3 spacecraft.
+				The magnetic field direction is determined from FGM data.
+				The  positions in the GSE coordinate system are found in the Auxiliary Summary product (CL_SP_AUX).
+			</Description>
+			<InformationURL>
+				<URL>http://www.cluster.rl.ac.uk/cdms-index.htm</URL>
+			</InformationURL>
+			<ProviderResourceName>CL_SP_PEA</ProviderResourceName>
+			<ResourceName>PEACE Summary Parameters</ResourceName>
+		</ResourceHeader>
+		<ResourceID>CSDS:NDR:CL_SP_PEA</ResourceID>
+		<TemporalDescription>
+			<Timespan>
+				<StartDate>2001-01-09</StartDate>
+			</Timespan>
+		</TemporalDescription>
+		</NumericalData>
+</Spase>

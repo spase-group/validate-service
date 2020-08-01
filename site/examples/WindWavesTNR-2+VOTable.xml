@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Spase xmlns="http://www.spase-group.org/data/schema">
+<Version>1.1.0</Version>
+<Instrument>
+    <ResourceID>spase://example/instrument</ResourceID>
+    <ResourceHeader>
+        <ResourceName>Wind Waves Thermal Noise Receiver</ResourceName>
+    	  <AlternateName>Thermal Noise Receiver</AlternateName>
+    	  <ReleaseDate>2004-10-01T00:00:00</ReleaseDate>
+        <Description>The Thermal Noise Receiver (TNR) on the WIND
+            spacecraft is an instrument of a new generation, which is
+            flown for the first time. It utilizes a digital spectrum
+            analysis technique similar to a wavelet transform analysis.
+            This permits a high time resolution, associated to a high
+            frequency resolution. It was essentially designed to measure
+            the thermal noise at a high rate. The interest of this
+            receiver also covers other events, both in situ (plasma
+            waves, ion acoustic waves) and remotely detected (solar and
+            magnetospheric radio bursts). However, this receiver uses a
+            compression technique which limits the study of high
+            intensity events. Namely, the digital dynamic range is about
+            45 dB, added to an AGC range of more than 60 dB, the AGC
+            acting as a sensitivity adjustment. (e.g. an 80 dB event
+            will not saturate the receiver, but the computed spectrum
+            will only cover its upper 45 dB.)</Description>
+        <Contact>
+            <PersonID>CDPP:PR:IssautierIsabelle</PersonID>
+            <Role>CoInvestigator</Role>
+        </Contact>
+    </ResourceHeader>
+    <InstrumentType>SpectralPowerReceiver</InstrumentType>
+    <InvestigationName/>
+    <ObservatoryID>spase://test/observatory</ObservatoryID>
+    <Caveats/>
+</Instrument>
+<vo:VOTable xmlns:vo="http://www.spase-group.org/data/schema">
+</vo:VOTable>
+</Spase>
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+
+<jsp:useBean id="validate" class="org.spase.web.Validator" scope="page" />
+
+<head>
+	<title>SPASE Metadata Validator</title>
+	<link href="css/general.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="banner"><h1 id="banner_text">SPASE Metadata Validator</h1></div>
+    <div class="wrapper">
+	<div id="primary-column">
+	<section>
+<%
+	validate.loadOptions(request);
+	validate.setXsdUrl("http://spase-group.org/data/model/schema/spase-" + validate.getVersionName() + ".xsd");
+
+	String port = "";
+	if(request.getServerPort() != 80) { port = ":" + request.getServerPort(); }
+%>
+
+<%! String PageTitle="SPASE - XML Validate Tool"; %>
+
+<h1>SPASE Metadata Validator</h1>
+<p>
+	Enter the URL or local path to the SPASE description, then click "Validate".<br>
+	You can also select the version of the data model to use and whether to check external references like
+	Resource IDs and URLs.<br>
+<form method="post" enctype="multipart/form-data">
+	<table class="width="0">
+		<tr><td>URL:&nbsp;<input type=text name=url size=80 value="<%= validate.getUrlForm() %>"></td></tr>
+			<tr><td><div class="indent">-or-</div></td></tr>
+		<tr><td>File:&nbsp;<input type=file name=url size=70 value="<%= validate.getFileForm() %>"></td></tr>
+		<tr><td align="center"><input type=submit name=submit value="Validate"></td></tr>
+		<tr><td>&nbsp;&nbsp;&nbsp;<table><tr><td valign=top nowrap>SPASE Data Model Version:</td><td>
+			<input type=radio name=version value="-" <%= validate.isValue("-", validate.getVersion()) %>>&nbsp;In XML
+			<input type=radio name=version value="2.3.1" <%= validate.isValue("2.3.1", validate.getVersion()) %>>&nbsp;2.3.1
+			<input type=radio name=version value="2.3.0" <%= validate.isValue("2.3.0", validate.getVersion()) %>>&nbsp;2.3.0
+			<input type=radio name=version value="2.2.9" <%= validate.isValue("2.2.9", validate.getVersion()) %>>&nbsp;2.2.9
+			<input type=radio name=version value="2.2.8" <%= validate.isValue("2.2.8", validate.getVersion()) %>>&nbsp;2.2.8
+			<input type=radio name=version value="2.2.6" <%= validate.isValue("2.2.6", validate.getVersion()) %>>&nbsp;2.2.6
+			<input type=radio name=version value="2.2.4" <%= validate.isValue("2.2.4", validate.getVersion()) %>>&nbsp;2.2.4
+			<input type=radio name=version value="2.2.3" <%= validate.isValue("2.2.3", validate.getVersion()) %>>&nbsp;2.2.3
+			<input type=radio name=version value="2.2.2" <%= validate.isValue("2.2.2", validate.getVersion()) %>>&nbsp;2.2.2
+			<input type=radio name=version value="2.2.1" <%= validate.isValue("2.2.1", validate.getVersion()) %>>&nbsp;2.2.1
+			<input type=radio name=version value="2.2.0" <%= validate.isValue("2.2.0", validate.getVersion()) %>>&nbsp;2.2.0
+			<input type=radio name=version value="2.1.0" <%= validate.isValue("2.1.0", validate.getVersion()) %>>&nbsp;2.1.0
+			<input type=radio name=version value="2.0.3" <%= validate.isValue("2.0.3", validate.getVersion()) %>>&nbsp;2.0.3
+			<input type=radio name=version value="2.0.2" <%= validate.isValue("2.0.2", validate.getVersion()) %>>&nbsp;2.0.2
+			<input type=radio name=version value="2.0.1" <%= validate.isValue("2.0.1", validate.getVersion()) %>>&nbsp;2.0.1
+			<input type=radio name=version value="2.0.0" <%= validate.isValue("2.0.0", validate.getVersion()) %>>&nbsp;2.0.0
+			<input type=radio name=version value="1.2.2" <%= validate.isValue("1.2.2", validate.getVersion()) %>>&nbsp;1.2.2
+			<input type=radio name=version value="1.2.0" <%= validate.isValue("1.2.0", validate.getVersion()) %>>&nbsp;1.2.0
+			<input type=radio name=version value="1.1.0" <%= validate.isValue("1.1.0", validate.getVersion()) %>>&nbsp;1.1.0
+		</td></tr></table>
+		</td><tr>
+		<tr><td>Check References:&nbsp;<input type=checkbox name=checkid value="yes" <%= validate.isChecked(validate.getCheckID()) %>>Resource ID <input type=checkbox name=checkurl value="yes" <%= validate.isChecked(validate.getCheckURL()) %> >URL</td></tr>
+		</table>
+</form>
+<center><button onclick="window.location.href='http://<%= request.getServerName() %><%= port %><%= request.getRequestURI() %>';">Start Over ...</button></center>
+</p>
+<p>
+<% 
+// if(request.getParameter("submit") != null) {
+if(validate.isReady()) {
+   out.print("Using schema: ");
+   if(validate.getVersion().equals("-")) {  
+      out.print("Matching version declared in XML document");
+   } else {
+      out.print(validate.getXsdUrl());
+   } 
+   out.print("<br>");
+	validate.setWriter(out);
+	// validate.loadSchema(); 
+	// validate.validate();
+	validate.doAction();
+} else {	// Show some examples
+%>
+</p>
+<p>
+	<dl>
+	<dt>Try some examples:</dt>
+	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/WindWavesTNR.xml&version=1.0.1&submit=Validate>WindWavesTNR.xml (version 1.0.1 compliant)</a><dd>
+	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/WindWavesTNR-2.xml&version=1.1.0&submit=Validate>WindWavesTNR.xml (version 1.1.0 compliant)</a><dd>
+	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/bad-WindWavesTNR.xml&version=1.0.1&submit=Validate>bad-WindWavesTNR.xml</a> (will produce an error)<dd>
+	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/CL_SP_PEA_SPASE_V1_0_1.xml&version=1.0.1&submit=Validate>CL_SP_PEA_SPASE_V1_0_1.xml (version 1.0.1 compliant)</a><dd>
+	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/bad-CL_SP_PEA_SPASE_V1_0_1.xml&version=1.0.1&submit=Validate>bad-CL_SP_PEA_SPASE_V1_0_1.xml</a> (will produce an error)<dd>
+	</dl>
+</p>
+<p>
+	This validation service uses XML schema and Java to perform the validation. 
+   It is part of the <a href="../resource">SPASE Resource Tools</a> collection. 
+</p>
+<p>
+	You can download XML schema definitions from: <a href="http://<%= request.getServerName() %>/data/model/schema">http://<%= request.getServerName() %>/data/model/schema</a>
+</p>
+<%
+}
+%>
+
+</section>
+</div> <!-- primary_column -->
+
+<div id="secondary-column">
+<aside>
+	<div class='boxed'>
+		<h2>Related Items</h2>
+		<nav>
+			<ul>
+				<li><a href="https://spase-group.org/services/naming-authority.html">List of Naming Authorities</a></li>
+				<li><a href="https://registry.spase-group.org/smwg/explorer">SMWG Registry Explorer</a></li>
+				<li><a href="https://registry.spase-group.org/explorer">HPDE Registry Explorer</a></li>
+				<li><a href="https://spase-group.org/tools/stylesheet/">XML Stylesheets</a></li>
+			</ul>
+		</nav>
+	</div>
+</aside>
+</div> <!-- secondary_column -->
+
+</div> <!-- wrapper -->
+
+</body>
+
+<footer>
+<div class="left">Copyright &copy; 2020</div>
+<div class="right margin-right-1em">Version 1.0.0</div>
+</footer>
+
+</html>

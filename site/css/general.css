@@ -1,0 +1,154 @@
+/**
+ **/
+ 
+/* 
+ * tag 
+ */
+html {
+    font-size: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font-family: sans-serif;
+}
+body {
+    margin: 0px;
+}
+a {
+    text-decoration: none;
+    color: #42a0f2;
+}
+a:focus {
+    outline: thin dotted;
+}
+a:active {
+    outline: 0;
+}
+a:hover {
+    text-decoration: underline;
+}
+h1, h2, h3, h4 {
+	color: #d94821;
+}
+h1 {
+    font-size: 2em;
+	margin-top: 0.5em;
+}
+h2 {
+    font-size: 1.5em;
+	margin-top: 0px;
+}
+h3 {
+    font-size: 1.17em;
+}
+h4 {
+    font-size: 1em;
+}
+nav ul {
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+	padding-bottom: 0.2em;
+}
+footer {
+	clear: both;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+    color: #BBBBBB;
+	background: #FFFFFF;
+	width: 100%;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+ }
+
+/*
+ * id 
+ */
+#banner {
+    background: #444444;
+    color: #FFFFFF;
+    padding: .2em;
+	text-align: center;
+}
+#banner h1 {
+    color: #FFFFFF;
+}
+#primary-column {
+    width: 100%;
+    margin-left: 20px;
+	margin-bottom: 3em;
+}
+@media screen and (min-width: 769px) {
+    #primary-column {
+        float: left;
+        width: 65%;
+    }
+}
+
+#secondary-column {
+    width: 100%;
+	margin-right: 20px;
+	margin-bottom: 3em;
+}
+@media screen and (min-width: 769px) {
+    #secondary-column {
+        width: 31%;
+        float: right;
+        clear: none;
+        padding-top: 16px;
+        margin-bottom: 22px;
+    }
+}
+#secondary-column aside {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    margin-bottom: 42px;
+    width: 100%;
+}
+
+/*
+ * class
+ */
+.wrapper {
+	margin: 10px;
+	margin-bottom: 4em;
+}
+.active {
+    background-color: #2184be !important;
+    color: white;
+}
+.disabled {
+    opacity: 0.3;
+}
+.indent {
+	padding-left: 2em;
+}
+.full-width {
+	width: 100%;
+}
+.right {
+	float: right;
+}
+.left {
+	float: left;
+}
+.margin-right-1em {
+	margin-right: 1em;
+}
+.right-justify {
+	text-align: right;
+}
+.center {
+	text-align: center;
+}
+.boxed {
+    padding: 12px 15px 13px;
+	border: 1px solid #cfd7e1;
+}
+.nav li {
+	
+}
+

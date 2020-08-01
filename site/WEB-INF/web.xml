@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app version="2.4"
+        xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+<!-- Site name and description -->
+  <display-name>SPASE Validator</display-name>
+  <description>Validate SPASE XML resource descriptions.</description>
+
+<!-- Welcome files -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+  </welcome-file-list>
+
+   <!-- Filter URLs - prevent XSS -->
+   <filter>
+      <filter-name>XSS</filter-name>
+      <display-name>XSS</display-name>
+      <description>Prevent XSS on a URL</description>
+      <filter-class>igpp.servlet.CrossScriptingFilter</filter-class>
+   </filter>
+   <filter-mapping>
+      <filter-name>XSS</filter-name>
+      <url-pattern>/*</url-pattern>
+   </filter-mapping>
+
+<!-- Files to be processed as JSP -->
+   <jsp-config>
+      <jsp-property-group>
+         <description>HTML files are wrapped prelude and coda code.</description>
+         <url-pattern>*.html</url-pattern>
+      </jsp-property-group>
+
+      <jsp-property-group>
+         <description>JSP files that are not wrapped.</description>
+         <url-pattern>*.jsp</url-pattern>
+      </jsp-property-group>
+
+   </jsp-config>
+  
+</web-app>
+
