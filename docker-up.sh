@@ -5,13 +5,9 @@
 # Command line options:
 # $1: port number for container (default: 8080)
 # $2: name for container (default: spase-website)
-# $3: path to folder for website (default: $(pwd)/../site)
-# $4: path to folder for logs (default: $(pwd)/../logs)
-
+#
 port=${1:-8080}
 name=${2:-spase-validate}
-website=${3:-$(pwd)/../site}
-logs=${4:-$(pwd)/../logs}
 
 # Set SUDO appropriate for OS
 SUDO=""
