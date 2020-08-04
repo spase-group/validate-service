@@ -3,10 +3,10 @@
 # Run in folder with Dockerfile.
 #
 # Command line options:
-# $1: port number for container (default: 8080)
+# $1: port number for container (default: 8090)
 # $2: name for container (default: spase-website)
 #
-port=${1:-8080}
+port=${1:-8090}
 name=${2:-spase-validate}
 
 # Set SUDO appropriate for OS
