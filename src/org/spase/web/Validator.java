@@ -77,7 +77,7 @@ public class Validator extends DefaultHandler {
 
 	private String mUrl = null;
 	private String mFile = null;
-	private String mXsdVersionDefault = "2.2.3";	// Most recent version
+	private String mXsdVersionDefault = "2.3.2";	// Most recent version
 	private String mXsdVersion = "-";	// Declared in file
 	// private String mRegistry = "http://www.spase-group.org/registry/resolver";
 	private String mRegistry = "https://hpde.io/";
