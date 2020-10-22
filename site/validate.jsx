@@ -1,7 +1,7 @@
 <jsp:useBean id="validate" class="org.spase.web.Validator" scope="page" />
 <%
 	validate.loadOptions(request);
-	validate.setXsdUrl("http://www.spase-group.org/data/model/schema/spase-" + validate.getVersionName() + ".xsd");
+	validate.setXsdUrl("https://spase-group.org/data/schema/spase-" + validate.getVersionName() + ".xsd");
 
 // if(request.getParameter("submit") != null) {
 if(validate.isReady()) {

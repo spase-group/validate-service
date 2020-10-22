@@ -77,9 +77,10 @@ public class Validator extends DefaultHandler {
 
 	private String mUrl = null;
 	private String mFile = null;
-	private String mXsdVersionDefault = "2.2.2";	// Most recent version
+	private String mXsdVersionDefault = "2.2.3";	// Most recent version
 	private String mXsdVersion = "-";	// Declared in file
-	private String mRegistry = "http://www.spase-group.org/registry/resolver";
+	// private String mRegistry = "http://www.spase-group.org/registry/resolver";
+	private String mRegistry = "https://hpde.io/";
 
 	private boolean mCheckURL = true;
 	private boolean mCheckID = true;
@@ -96,7 +97,7 @@ public class Validator extends DefaultHandler {
 	private String mLastError = "";
 	private String mLastWarning = "";
 
-	private String mXsdUrl = "http://www.spase-group.org/data/schema/spase-2_2_2.xsd";
+	private String mXsdUrl = "https://spase-group.org/data/schema/spase-2.2.3.xsd";
 
 	/**
 	 * Validate a SPASE resource description using a specified version of the
@@ -722,19 +723,25 @@ public class Validator extends DefaultHandler {
 	public boolean lookupID(String id) {
 		boolean valid = false;
 
+		// Look for file at https://hpde.io
+		
+		String path = id.replace("spase://", "");	// Remove "spase://" prefix
+		return checkURL(mRegistry + path + ".xml");
+		
+		// Old method using registry service
 		// Query server
-		try {
-			Document doc = XMLGrep.parse(mRegistry + "?c=yes&i=" + id);
-			ArrayList<Pair> docIndex = XMLGrep.makeIndex(doc, "");
-			if (XMLGrep.getFirstValue(docIndex, ".*/Known", null) != null)
-				valid = true;
-		} catch (Exception e) {
-			valid = false;
-			if (mVerbose)
-				System.out.println(e.getMessage());
-		}
+		// try {
+		//	Document doc = XMLGrep.parse(mRegistry + "?c=yes&i=" + id);
+		//	ArrayList<Pair> docIndex = XMLGrep.makeIndex(doc, "");
+		//	if (XMLGrep.getFirstValue(docIndex, ".*/Known", null) != null)
+		//		valid = true;
+		//} catch (Exception e) {
+		//	valid = false;
+		//	if (mVerbose)
+		//		System.out.println(e.getMessage());
+		//}
 
-		return valid;
+		// return valid;
 	}
 
 	/**
