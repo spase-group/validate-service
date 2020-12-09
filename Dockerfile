@@ -16,4 +16,4 @@ ADD site /var/lib/jetty/webapps/ROOT
 VOLUME /var/lib/jetty/logs
 VOLUME /var/lib/jetty/webapps
 
-
+ENV JAVA_OPTS "-Djdk.tls.trustNameService=true"

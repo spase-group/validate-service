@@ -1,3 +1,7 @@
+<%
+  String HOST = "http://validator.lwstrt.org";
+%>
+
 <!DOCTYPE html>
 <html>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
@@ -17,7 +21,7 @@
 	<section>
 <%
 	validate.loadOptions(request);
-	validate.setXsdUrl("http://spase-group.org/data/model/schema/spase-" + validate.getVersionName() + ".xsd");
+	validate.setXsdUrl("https://spase-group.org/data/model/schema/spase-" + validate.getVersionName() + ".xsd");
 
 	String port = "";
 	if(request.getServerPort() != 80) { port = ":" + request.getServerPort(); }
@@ -38,7 +42,6 @@
 		<tr><td align="center"><input type=submit name=submit value="Validate"></td></tr>
 		<tr><td>&nbsp;&nbsp;&nbsp;<table><tr><td valign=top nowrap>SPASE Data Model Version:</td><td>
 			<input type=radio name=version value="-" <%= validate.isValue("-", validate.getVersion()) %>>&nbsp;In XML
-			<input type=radio name=version value="2.3.1" <%= validate.isValue("2.3.2", validate.getVersion()) %>>&nbsp;2.3.2
 			<input type=radio name=version value="2.3.1" <%= validate.isValue("2.3.1", validate.getVersion()) %>>&nbsp;2.3.1
 			<input type=radio name=version value="2.3.0" <%= validate.isValue("2.3.0", validate.getVersion()) %>>&nbsp;2.3.0
 			<input type=radio name=version value="2.2.9" <%= validate.isValue("2.2.9", validate.getVersion()) %>>&nbsp;2.2.9
@@ -62,7 +65,10 @@
 		<tr><td>Check References:&nbsp;<input type=checkbox name=checkid value="yes" <%= validate.isChecked(validate.getCheckID()) %>>Resource ID <input type=checkbox name=checkurl value="yes" <%= validate.isChecked(validate.getCheckURL()) %> >URL</td></tr>
 		</table>
 </form>
+<!--
 <center><button onclick="window.location.href='http://<%= request.getServerName() %><%= port %><%= request.getRequestURI() %>';">Start Over ...</button></center>
+-->
+<center><button onclick="window.location.href='<%= HOST %><%= request.getRequestURI() %>';">Start Over ...</button></center>
 </p>
 <p>
 <% 
@@ -85,11 +91,18 @@ if(validate.isReady()) {
 <p>
 	<dl>
 	<dt>Try some examples:</dt>
+	<!--
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/WindWavesTNR.xml&version=1.0.1&submit=Validate>WindWavesTNR.xml (version 1.0.1 compliant)</a><dd>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/WindWavesTNR-2.xml&version=1.1.0&submit=Validate>WindWavesTNR.xml (version 1.1.0 compliant)</a><dd>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/bad-WindWavesTNR.xml&version=1.0.1&submit=Validate>bad-WindWavesTNR.xml</a> (will produce an error)<dd>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/CL_SP_PEA_SPASE_V1_0_1.xml&version=1.0.1&submit=Validate>CL_SP_PEA_SPASE_V1_0_1.xml (version 1.0.1 compliant)</a><dd>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/bad-CL_SP_PEA_SPASE_V1_0_1.xml&version=1.0.1&submit=Validate>bad-CL_SP_PEA_SPASE_V1_0_1.xml</a> (will produce an error)<dd>
+	-->
+	<dd><a href=index.html?url=<%= HOST %>/examples/WindWavesTNR.xml&version=1.0.1&submit=Validate>WindWavesTNR.xml (version 1.0.1 compliant)</a><dd>
+	<dd><a href=index.html?url=<%= HOST %>/examples/WindWavesTNR-2.xml&version=1.1.0&submit=Validate>WindWavesTNR.xml (version 1.1.0 compliant)</a><dd>
+	<dd><a href=index.html?url=<%= HOST %>/examples/bad-WindWavesTNR.xml&version=1.0.1&submit=Validate>bad-WindWavesTNR.xml</a> (will produce an error)<dd>
+	<dd><a href=index.html?url=<%= HOST %>/examples/CL_SP_PEA_SPASE_V1_0_1.xml&version=1.0.1&submit=Validate>CL_SP_PEA_SPASE_V1_0_1.xml (version 1.0.1 compliant)</a><dd>
+	<dd><a href=index.html?url=<%= HOST %>/examples/bad-CL_SP_PEA_SPASE_V1_0_1.xml&version=1.0.1&submit=Validate>bad-CL_SP_PEA_SPASE_V1_0_1.xml</a> (will produce an error)<dd>
 	</dl>
 </p>
 <p>
@@ -97,7 +110,10 @@ if(validate.isReady()) {
    It is part of the <a href="../resource">SPASE Resource Tools</a> collection. 
 </p>
 <p>
+<!--
 	You can download XML schema definitions from: <a href="http://<%= request.getServerName() %>/data/model/schema">http://<%= request.getServerName() %>/data/model/schema</a>
+-->
+	You can download XML schema definitions from: <a href="<%= HOST %>/data/model/schema"><%= HOST %>/data/model/schema</a>
 </p>
 <%
 }

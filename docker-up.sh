@@ -6,7 +6,7 @@
 # $1: port number for container (default: 8090)
 # $2: name for container (default: spase-website)
 #
-port=${1:-8090}
+port=${1:-8080}
 name=${2:-spase-validate}
 
 # Set SUDO appropriate for OS

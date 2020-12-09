@@ -1,1 +1,1 @@
-java -Djava.ext.dirs="/var/www/spase/WEB-INF/lib:/opt/tomcat/common/lib" $@
+java -Djdk.tls.trustNameService=true -Djava.ext.dirs="/var/www/spase/WEB-INF/lib:/opt/tomcat/common/lib" $@
