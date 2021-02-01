@@ -463,7 +463,7 @@ public class Validator extends DefaultHandler {
 		InputStream inputStream = null;
 
 		String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
-		String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema"; 
+		String W3C_XML_SCHEMA = "https://www.w3.org/2001/XMLSchema"; 
 		String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
 		
 		/*
@@ -491,7 +491,8 @@ public class Validator extends DefaultHandler {
 		
 		// Use a validating parser with namespaces
 		SAXParserFactory factory = SAXParserFactory.newInstance();
-		factory.setValidating(true);
+		//factory.setValidating(true);
+		factory.setValidating(false);
 		factory.setNamespaceAware(true);
 		factory.setXIncludeAware(true);
 		
@@ -518,9 +519,15 @@ public class Validator extends DefaultHandler {
 				setSchemaFromVersion(mXsdVersionDefault);
 			}
 			// Parse the input
+			SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			Schema sc = schemafactory.newSchema(new URL(mXsdUrl));
+			factory.setSchema(sc);
+
 			SAXParser saxParser = factory.newSAXParser();
-			saxParser.setProperty(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
-			saxParser.setProperty(JAXP_SCHEMA_SOURCE, new InputSource(new URL(mXsdUrl).openStream()));
+
+			//saxParser.setProperty(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
+			//saxParser.setProperty(JAXP_SCHEMA_SOURCE, new InputSource(new URL(mXsdUrl).openStream()));
+			
 			// saxParser.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation", "/temp/spase-2_2_2.xsd");
 			// saxParser.setProperty("http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", "/temp/spase-2_2_2.xsd");
 			saxParser.parse(inputStream, this);	
