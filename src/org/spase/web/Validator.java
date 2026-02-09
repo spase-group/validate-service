@@ -463,8 +463,8 @@ public class Validator extends DefaultHandler {
 		InputStream inputStream = null;
 
 		String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
-		String W3C_XML_SCHEMA = "https://www.w3.org/2001/XMLSchema"; 
-		String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
+		//String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
+		String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema"; 
 		
 		/*
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -474,7 +474,7 @@ public class Validator extends DefaultHandler {
 		try {
 		   // factory.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
 		   // factory.setAttribute(JAXP_SCHEMA_SOURCE,  new File("/temp/spase-2_2_2.xsd")); 
-  		   // factory.setAttribute( "http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", "/temp/spase-2_2_2.xsd");
+  		   // factory.setAttribute( "https://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", "/temp/spase-2_2_2.xsd");
   		   factory.setSchema(mSchema);
 		   // factory.setAttribute(JAXP_SCHEMA_SOURCE, new InputSource(new URL(mXsdUrl).openStream()));
 	       DocumentBuilder builder = factory.newDocumentBuilder();
@@ -527,7 +527,7 @@ public class Validator extends DefaultHandler {
 
 			//saxParser.setProperty(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
 			//saxParser.setProperty(JAXP_SCHEMA_SOURCE, new InputSource(new URL(mXsdUrl).openStream()));
-			
+
 			// saxParser.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation", "/temp/spase-2_2_2.xsd");
 			// saxParser.setProperty("http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", "/temp/spase-2_2_2.xsd");
 			saxParser.parse(inputStream, this);	
@@ -1184,7 +1184,7 @@ public class Validator extends DefaultHandler {
 		mXsdUrl = "https://spase-group.org/data/schema/spase-" + version + ".xsd";
 		//mXsdUrl = "http://dolanbrau.com/dev/schema/spase-2_3_1.xsd"; // test!
 		//println("Actually loading " + mXsdUrl);
-		loadSchema(mXsdUrl);
+		//loadSchema(mXsdUrl);
 	}
 
 	public void setFile(String value) {
