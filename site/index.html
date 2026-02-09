@@ -1,5 +1,5 @@
 <%
-  String HOST = "http://validator.spase-utilities.org";
+  String HOST = "https://spase-validator.heliocloud.org";
 %>
 
 <!DOCTYPE html>
@@ -11,7 +11,10 @@
 
 <head>
 	<title>SPASE Metadata Validator</title>
-	<link href="css/general.css" rel="stylesheet">
+	<link href="<%= HOST %>/css/general.css" rel="stylesheet">
+	<!--<link href="https://spase-validator.heliocloud.org/css/general.css" rel="stylesheet">
+	<link href="https://spase-validator.heliocloud.org/css/general.css" rel="stylesheet">-->
+	<script language="javascript" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NASA&subagency=GSFC"></script>
 </head>
 
 <body>
@@ -42,6 +45,13 @@
 		<tr><td align="center"><input type=submit name=submit value="Validate"></td></tr>
 		<tr><td>&nbsp;&nbsp;&nbsp;<table><tr><td valign=top nowrap>SPASE Data Model Version:</td><td>
 			<input type=radio name=version value="-" <%= validate.isValue("-", validate.getVersion()) %>>&nbsp;In XML
+			<input type=radio name=version value="2.7.1" <%= validate.isValue("2.7.1", validate.getVersion()) %>>&nbsp;2.7.1
+			<input type=radio name=version value="2.7.0" <%= validate.isValue("2.7.0", validate.getVersion()) %>>&nbsp;2.7.0
+			<input type=radio name=version value="2.6.1" <%= validate.isValue("2.6.1", validate.getVersion()) %>>&nbsp;2.6.1
+			<input type=radio name=version value="2.6.0" <%= validate.isValue("2.6.0", validate.getVersion()) %>>&nbsp;2.6.0
+			<input type=radio name=version value="2.5.0" <%= validate.isValue("2.5.0", validate.getVersion()) %>>&nbsp;2.5.0
+			<input type=radio name=version value="2.4.1" <%= validate.isValue("2.4.1", validate.getVersion()) %>>&nbsp;2.4.1
+			<input type=radio name=version value="2.4.0" <%= validate.isValue("2.4.0", validate.getVersion()) %>>&nbsp;2.4.0
 			<input type=radio name=version value="2.3.2" <%= validate.isValue("2.3.2", validate.getVersion()) %>>&nbsp;2.3.2
 			<input type=radio name=version value="2.3.1" <%= validate.isValue("2.3.1", validate.getVersion()) %>>&nbsp;2.3.1
 			<input type=radio name=version value="2.3.0" <%= validate.isValue("2.3.0", validate.getVersion()) %>>&nbsp;2.3.0
@@ -61,6 +71,7 @@
 			<input type=radio name=version value="1.2.2" <%= validate.isValue("1.2.2", validate.getVersion()) %>>&nbsp;1.2.2
 			<input type=radio name=version value="1.2.0" <%= validate.isValue("1.2.0", validate.getVersion()) %>>&nbsp;1.2.0
 			<input type=radio name=version value="1.1.0" <%= validate.isValue("1.1.0", validate.getVersion()) %>>&nbsp;1.1.0
+			<input type=radio name=version value="sim-1.0.0" <%= validate.isValue("sim-1.0.0", validate.getVersion()) %>>&nbsp;sim-1.0.0
 		</td></tr></table>
 		</td><tr>
 		<tr><td>Check References:&nbsp;<input type=checkbox name=checkid value="yes" <%= validate.isChecked(validate.getCheckID()) %>>Resource ID <input type=checkbox name=checkurl value="yes" <%= validate.isChecked(validate.getCheckURL()) %> >URL</td></tr>
@@ -91,13 +102,13 @@ if(validate.isReady()) {
 </p>
 <p>
 	<dl>
+	<!--
 	<dt>Try some examples:</dt>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/WindWavesTNR.xml&version=1.0.1&submit=Validate>WindWavesTNR.xml (version 1.0.1 compliant)</a><dd>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/WindWavesTNR-2.xml&version=1.1.0&submit=Validate>WindWavesTNR.xml (version 1.1.0 compliant)</a><dd>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/bad-WindWavesTNR.xml&version=1.0.1&submit=Validate>bad-WindWavesTNR.xml</a> (will produce an error)<dd>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/CL_SP_PEA_SPASE_V1_0_1.xml&version=1.0.1&submit=Validate>CL_SP_PEA_SPASE_V1_0_1.xml (version 1.0.1 compliant)</a><dd>
 	<dd><a href=index.html?url=http://<%= request.getServerName() %><%= port %>/examples/bad-CL_SP_PEA_SPASE_V1_0_1.xml&version=1.0.1&submit=Validate>bad-CL_SP_PEA_SPASE_V1_0_1.xml</a> (will produce an error)<dd>
-	<!--
 	<dd><a href=index.html?url=<%= HOST %>/examples/WindWavesTNR.xml&version=1.0.1&submit=Validate>WindWavesTNR.xml (version 1.0.1 compliant)</a><dd>
 	<dd><a href=index.html?url=<%= HOST %>/examples/WindWavesTNR-2.xml&version=1.1.0&submit=Validate>WindWavesTNR.xml (version 1.1.0 compliant)</a><dd>
 	<dd><a href=index.html?url=<%= HOST %>/examples/bad-WindWavesTNR.xml&version=1.0.1&submit=Validate>bad-WindWavesTNR.xml</a> (will produce an error)<dd>
@@ -108,7 +119,7 @@ if(validate.isReady()) {
 </p>
 <p>
 	This validation service uses XML schema and Java to perform the validation. 
-   It is part of the <a href="../resource">SPASE Resource Tools</a> collection. 
+   It is part of the <a href="https://spase-group.org/tools">SPASE Resource Tools</a> collection. 
 </p>
 <p>
 <!--

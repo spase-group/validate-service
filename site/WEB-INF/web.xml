@@ -9,6 +9,26 @@
   <display-name>SPASE Validator</display-name>
   <description>Validate SPASE XML resource descriptions.</description>
 
+<!-- Attempt to stretch the idle timeout to avoid 504 errors on large files
+<context-param>
+    <param-name>idleTimeout</param-name>
+    <param-value>90000</param-value>
+</context-param>
+<context-param>
+    <param-name>timeout</param-name>
+    <param-value>90000</param-value>
+</context-param>
+-->
+<init-param>
+    <param-name>idleTimeout</param-name>
+    <param-value>90000</param-value>
+</init-param>
+<init-param>
+    <param-name>timeout</param-name>
+    <param-value>90000</param-value>
+</init-param>
+
+
 <!-- Welcome files -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

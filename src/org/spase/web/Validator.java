@@ -77,10 +77,11 @@ public class Validator extends DefaultHandler {
 
 	private String mUrl = null;
 	private String mFile = null;
-	private String mXsdVersionDefault = "2.3.2";	// Most recent version
+	private String mSourceFilename = null;
+	private String mXsdVersionDefault = "2.7.1";	// Most recent version
 	private String mXsdVersion = "-";	// Declared in file
 	// private String mRegistry = "http://www.spase-group.org/registry/resolver";
-	private String mRegistry = "https://hpde.io/";
+	private String mRegistry = "https://spase-metadata.org/";
 
 	private boolean mCheckURL = true;
 	private boolean mCheckID = true;
@@ -97,7 +98,7 @@ public class Validator extends DefaultHandler {
 	private String mLastError = "";
 	private String mLastWarning = "";
 
-	private String mXsdUrl = "https://spase-group.org/data/schema/spase-2.2.3.xsd";
+	private String mXsdUrl = "https://spase-group.org/data/schema/spase-2.7.1.xsd";
 
 	/**
 	 * Validate a SPASE resource description using a specified version of the
@@ -412,6 +413,7 @@ public class Validator extends DefaultHandler {
 		if (mUrl != null) { // From URL
 			try {
 				URL file = new URL(mUrl);
+				mSourceFilename = mUrl;
 				inputStream = file.openStream();
 			} catch (Exception e) {
 				// Try as a file
@@ -432,6 +434,7 @@ public class Validator extends DefaultHandler {
 					for (Enumeration e = files.keys(); e.hasMoreElements();) {
 						name = (String) e.nextElement();
 						file = (UploadFile) files.get(name);
+						mSourceFilename = file.getFileName();
 						if (file == null)
 							return null; // Error
 						inputStream = file.getInpuStream(); // Typo is in
@@ -449,7 +452,6 @@ public class Validator extends DefaultHandler {
 			}
 
 		}
-
 		return inputStream;
 	}
 
@@ -503,8 +505,8 @@ public class Validator extends DefaultHandler {
 		
 		// Validate the file
 		// open document
-		if (mVerbose)
-			print("Validating: ");
+//		if (mVerbose)
+			println("Validating " + mSourceFilename + ":<br/>");
 		inputStream = openWellFormedFile(true);
 
 		if (withHTML())
@@ -527,7 +529,6 @@ public class Validator extends DefaultHandler {
 
 			//saxParser.setProperty(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
 			//saxParser.setProperty(JAXP_SCHEMA_SOURCE, new InputSource(new URL(mXsdUrl).openStream()));
-
 			// saxParser.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation", "/temp/spase-2_2_2.xsd");
 			// saxParser.setProperty("http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", "/temp/spase-2_2_2.xsd");
 			saxParser.parse(inputStream, this);	
@@ -564,7 +565,7 @@ public class Validator extends DefaultHandler {
 		}
 		
 		inputStream.close();
-    	
+
 		if (mCheckURL || mCheckID) {
 			// re-open document for referential checking
 			inputStream = openFile(false);
@@ -588,7 +589,7 @@ public class Validator extends DefaultHandler {
 						new InputStreamReader(inputStream));
 				while ((buffer = reader.readLine()) != null) {
 					n++;
-					for (String item : mBadRef) {
+					for (String item : mBadRef) {  
 						if (buffer.indexOf(item) != -1) {
 							if (withHTML()) {
 								message = "<a href=#" + n + ">Line " + n
@@ -707,7 +708,7 @@ public class Validator extends DefaultHandler {
 					XMLGrep.getValues(docIndex, ".*/URL"), true);
 			if (urlList != null) {
 				for (String url : urlList) {
-					if (!checkURL(url)) {
+					if (!checkURL(url)) {  
 						mBadRef.add(url);
 					}
 				}
@@ -733,7 +734,8 @@ public class Validator extends DefaultHandler {
 		// Look for file at https://hpde.io
 		
 		String path = id.replace("spase://", "");	// Remove "spase://" prefix
-		return checkURL(mRegistry + path + ".xml");
+
+		return checkURL(mRegistry + path); // + ".xml");
 		
 		// Old method using registry service
 		// Query server
@@ -768,21 +770,35 @@ public class Validator extends DefaultHandler {
 		boolean valid = false;
 		try {
 			URL url = new URL(urlSpec);
-
+//println ("checking: " + urlSpec + "<br/>\n");
+//System.out.println ("check: " + urlSpec);
 			if (url.getProtocol().compareToIgnoreCase("ftp") == 0) {
 				valid = checkFTP(urlSpec);
 			} else { // Try as URL
+				HttpURLConnection.setFollowRedirects(true);
 				HttpURLConnection con = (HttpURLConnection) url
 						.openConnection();
 
 				con.setRequestMethod("HEAD");
+				//con.setRequestMethod("GET");
+				con.setConnectTimeout(10000); //set timeout to 5 seconds
+				con.setReadTimeout(10000); //set timeout to 5 seconds
 				con.connect();
 				con.disconnect();
-
-				valid = true;
+//println (urlSpec + " returns " + con.getResponseCode() + " " + con.getResponseMessage() + "<br/>");
+				if (con.getResponseCode() == 200) {
+					valid = true;
+				} else {
+					if (con.getResponseCode() == 301 || con.getResponseCode() == 302 || con.getResponseCode() == 308) {
+					valid = true;
+					} else {
+						throw new Exception (urlSpec + " returns code " + con.getResponseCode());
+					}
+				}
 			}
 		} catch (Exception e) {
 			valid = false;
+			println("Failed to access URL: " + urlSpec + " --- <b>"  + e.getMessage() + "</b><br/>\n");
 			if (mVerbose)
 				System.out.println(e.getMessage());
 		}
@@ -1153,11 +1169,12 @@ public class Validator extends DefaultHandler {
 	}
 
 	public void setCheckID(String value) {
-		if (value == null) {
-			mCheckID = true;
-		} else {
+// 2025/05/02 - these fields don't get sent if unclicked - don't know why null would be considered true
+//		if (value == null) {
+//			mCheckID = true;
+//		} else {
 			mCheckID = igpp.util.Text.isTrue(value);
-		}
+//		}
 	}
 
 	public boolean getCheckID() {
@@ -1165,11 +1182,11 @@ public class Validator extends DefaultHandler {
 	}
 
 	public void setCheckURL(String value) {
-		if (value == null) {
-			mCheckURL = true;
-		} else {
+//		if (value == null) {
+//			mCheckURL = true;
+//		} else {
 			mCheckURL = igpp.util.Text.isTrue(value);
-		}
+//		}
 	}
 
 	public boolean getCheckURL() {
